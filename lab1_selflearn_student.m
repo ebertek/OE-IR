@@ -11,7 +11,7 @@ end
 close all;
 
 %% Basemaps
-map=imread('lab1-32d.png');
+map=imread('lab1_32d.png');
 
 
 
