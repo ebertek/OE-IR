@@ -131,20 +131,20 @@ while norm(robotPos) ~= norm(finishPos)
     %%% IDE TESSÉK ÍRNI
     switch movementIndex
         case moveRight
-            if newPos(2) < size(map,1) - 1
-                newPos(2) = newPos(2) + 1;
+            if robotPos(2) < size(map,1) - 1
+                newPos(2) = robotPos(2) + 1;
             end
         case moveLeft
-            if newPos(2) > 2
-                newPos(2) = newPos(2) - 1;
+            if robotPos(2) > 2
+                newPos(2) = robotPos(2) - 1;
             end
         case moveUp
-            if newPos(1) > 2
-                newPos(1) = newPos(1) - 1;
+            if robotPos(1) > 2
+                newPos(1) = robotPos(1) - 1;
             end
         case moveDown
-            if newPos(1) < size(map,2) - 1
-                newPos(1) = newPos(1) + 1;
+            if robotPos(1) < size(map,2) - 1
+                newPos(1) = robotPos(1) + 1;
             end
     end
     %%% EDDIG
