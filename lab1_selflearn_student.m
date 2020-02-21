@@ -109,6 +109,7 @@ while norm(robotPos) ~= norm(finishPos)
             directionIndex = dirLeft;
         end
     end
+    kulonbsegAbs = norm(kulonbseg);
     %%% EDDIG
     disp(directionIndex)
     
@@ -121,14 +122,31 @@ while norm(robotPos) ~= norm(finishPos)
     % moveUp    = 3;
     % moveDown  = 4;
     %%% IDE TESSÉK ÍRNI
-    
+    movementIndex = moveDown;
     %%% EDDIG
-    
+
   % 3. feladat
     %az új lépés kiszámítása, azaz "newPos" változó sorának ill.
     %oszlopának inkrementálása ill. dekrementálása
     %%% IDE TESSÉK ÍRNI
-    
+    switch movementIndex
+        case moveRight
+            if newPos(2) < size(map,1) - 1
+                newPos(2) = newPos(2) + 1;
+            end
+        case moveLeft
+            if newPos(2) > 2
+                newPos(2) = newPos(2) - 1;
+            end
+        case moveUp
+            if newPos(1) > 2
+                newPos(1) = newPos(1) - 1;
+            end
+        case moveDown
+            if newPos(1) < size(map,2) - 1
+                newPos(1) = newPos(1) + 1;
+            end
+    end
     %%% EDDIG
     
   % 4. feladat
