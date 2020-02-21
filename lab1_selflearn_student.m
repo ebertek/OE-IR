@@ -109,7 +109,7 @@ while norm(robotPos) ~= norm(finishPos)
             directionIndex = dirLeft;
         end
     end
-    kulonbsegAbs = norm(kulonbseg);
+    kulonbsegAbs_eredeti = norm(kulonbseg);
     %%% EDDIG
     disp(directionIndex)
     
@@ -122,7 +122,7 @@ while norm(robotPos) ~= norm(finishPos)
     % moveUp    = 3;
     % moveDown  = 4;
     %%% IDE TESSÉK ÍRNI
-    movementIndex = moveDown;
+    [legjobb,movementIndex] = max(ruleTable(directionIndex,:));
     %%% EDDIG
 
   % 3. feladat
@@ -153,7 +153,13 @@ while norm(robotPos) ~= norm(finishPos)
     %távolság ellenõrzése, ha közeledtünk => szabály megerõsítése, ha
     %távolodtunk => szabály lerontása
     %%% IDE TESSÉK ÍRNI
-    
+    kulonbseg = finishPos-newPos;
+    kulonbsegAbs_uj = norm(kulonbseg);
+    if kulonbsegAbs_uj < kulonbsegAbs_eredeti
+        ruleTable(directionIndex,movementIndex) = ruleTable(directionIndex,movementIndex) + 1;
+    else
+        ruleTable(directionIndex,movementIndex) = ruleTable(directionIndex,movementIndex) - 1;
+    end
     %%% EDDIG
     
     %display movement
@@ -171,5 +177,5 @@ end
 prompt = 'Retry? [Y/N]';
 str = input(prompt,'s');
 if upper(str) == 'Y'
-    selflearn_student
+    lab1_selflearn_student
 end
