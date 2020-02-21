@@ -53,7 +53,6 @@ for i = 1:size(map,1)
     end
 end
 
-
 %find F
 finishPos = [-1,-1]; %invalid
 for i = 1:size(map,1)
@@ -65,7 +64,7 @@ for i = 1:size(map,1)
 end
 
 disp(['start coords: ', num2str(startPos)]);
-disp(['finish coords: ', num2str(finishPos)]); 
+disp(['finish coords: ', num2str(finishPos)]);
 
 %% Replace start, finish, obstacle cell values
 map = rgb2gray(map);
@@ -88,8 +87,8 @@ while norm(robotPos) ~= norm(finishPos)
     newPos = robotPos;
     directionIndex = -1;
   % 1. feladat
-    %directionIndex, azaz a robothoz képest a cél irányának meghatározása 
-    %directions 
+    %directionIndex, azaz a robothoz képest a cél irányának meghatározása
+    %directions
     % dirRight = 1;
     % dirLeft  = 2;
     % dirUp    = 3;
@@ -112,7 +111,7 @@ while norm(robotPos) ~= norm(finishPos)
     kulonbsegAbs_eredeti = norm(kulonbseg);
     %%% EDDIG
     disp(directionIndex)
-    
+
   % 2. feladat
     %movementIndex, azaz az adott irányhoz tartozó legnagyobb jóságú lépés
     %kiválasztása a szabálytáblából
@@ -148,7 +147,7 @@ while norm(robotPos) ~= norm(finishPos)
             end
     end
     %%% EDDIG
-    
+
   % 4. feladat
     %távolság ellenõrzése, ha közeledtünk => szabály megerõsítése, ha
     %távolodtunk => szabály lerontása
@@ -161,12 +160,12 @@ while norm(robotPos) ~= norm(finishPos)
         ruleTable(directionIndex,movementIndex) = ruleTable(directionIndex,movementIndex) - 1;
     end
     %%% EDDIG
-    
+
     %display movement
     map(robotPos(1),robotPos(2)) = pathVal;
     robotPos = newPos;
     map(robotPos(1),robotPos(2)) = robotVal;
-    
+
     disp(ruleTable);
     imagesc(map);
     colormap(jet);
