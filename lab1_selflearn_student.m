@@ -39,7 +39,7 @@ moveLeft=2;
 moveUp=3;
 moveDown=4;
 
-if (exist('ruleTable')==0)    
+if (exist('ruleTable', 'var')==0)    
     ruleTable=zeros(directions,movements);
 end
 %% get start and finish positions
@@ -56,8 +56,8 @@ end
 
 %find F
 finishPos=[-1,-1]; %invalid
-for (i=1:size(map,1))
-    for (j=1:size(map,2))
+for i=1:size(map,1)
+    for j=1:size(map,2)
         if reshape(map(i,j,:),[1 3])==[0,255,0] %green
             finishPos=[i,j];
         end
@@ -72,8 +72,8 @@ map=rgb2gray(map);
 map=1-im2double(map);
 map(finishPos(1), finishPos(2))=finishVal; %finish
 map(startPos(1), startPos(2))=robotVal; %start
-for (i=1:size(map,1))
-    for (j=1:size(map,2))
+for i=1:size(map,1)
+    for j=1:size(map,2)
         if map(i,j)==1
             map(i,j)=obstacleVal; %obstacle
         end
@@ -109,8 +109,6 @@ while(norm(robotPos)~=norm(finishPos))
             directionIndex = dirLeft;
         end
     end
-   
-    
     %%% EDDIG
     disp(directionIndex)
     
@@ -124,9 +122,6 @@ while(norm(robotPos)~=norm(finishPos))
     % moveDown=4;
     %%% IDE TESSÉK ÍRNI
     
-    
-    
-    
     %%% EDDIG
     
   % 3. feladat   
@@ -134,18 +129,12 @@ while(norm(robotPos)~=norm(finishPos))
     %oszlopának inkrementálása ill. dekrementálása
     %%% IDE TESSÉK ÍRNI
     
-    
-    
-    
     %%% EDDIG
     
   % 4. feladat
     %távolság ellenõrzése, ha közeledtünk => szabály megerõsítése, ha
     %távolodtunk => szabály lerontása
     %%% IDE TESSÉK ÍRNI
-    
-    
-    
     
     %%% EDDIG   
     
