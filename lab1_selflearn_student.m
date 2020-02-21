@@ -1,9 +1,11 @@
-%Tested on Matlab R2016b Academic
+%Tested on MATLAB R2019b Academic
 prompt = 'Clear ruleTable? [Y/N]';
 str = input(prompt,'s');
 if upper(str) == 'N'
-    clearvars -except ruleTable
-    disp(ruleTable)
+    if exist('ruleTable', 'var')
+        clearvars -except ruleTable
+        disp(ruleTable)
+    end
 else
     clear all;
     disp('ruleTable empty')
@@ -12,8 +14,6 @@ close all;
 
 %% Basemaps
 map = imread('lab1_32d.png');
-
-
 
 %% "defines"
 %cell values
@@ -40,7 +40,7 @@ moveUp    = 3;
 moveDown  = 4;
 
 if exist('ruleTable', 'var') == 0
-    ruleTable=zeros(directions,movements);
+    ruleTable = zeros(directions,movements);
 end
 %% get start and finish positions
 %find R
