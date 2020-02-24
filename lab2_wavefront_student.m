@@ -4,7 +4,7 @@ clear all;
 close all;
 
 %% Basemaps
-map=imread('32.png'); %N 32x32
+map=imread('lab2_32.png'); %N 32x32
 
 
 %% "defines"
@@ -17,8 +17,8 @@ obstacleVal=-3;
 %% get start and finish positions
 %find R
 startPos=[-1,-1]; %invalid
-for (i=1:size(map,1))
-    for (j=1:size(map,2))
+for i=1:size(map,1)
+    for j=1:size(map,2)
         if reshape(map(i,j,:),[1 3])==[255,0,0] %red
             startPos=[i,j];
         end
@@ -28,8 +28,8 @@ end
 
 %find F
 finishPos=[-1,-1]; %invalid
-for (i=1:size(map,1))
-    for (j=1:size(map,2))
+for i=1:size(map,1)
+    for j=1:size(map,2)
         if reshape(map(i,j,:),[1 3])==[0,255,0] %green
             finishPos=[i,j];
         end
@@ -37,15 +37,15 @@ for (i=1:size(map,1))
 end
 
 disp(['start coords: ', num2str(startPos)]);
-disp(['finish coords: ', num2str(finishPos)]); 
+disp(['finish coords: ', num2str(finishPos)]);
 
 %% Replace start, finish, obstacle cell values
 map=rgb2gray(map);
 map=1-im2double(map);
 map(finishPos(1), finishPos(2))=finishVal; %finish
 map(startPos(1), startPos(2))=startVal; %start
-for (i=1:size(map,1))
-    for (j=1:size(map,2))
+for i=1:size(map,1)
+    for j=1:size(map,2)
         if map(i,j)==1
             map(i,j)=obstacleVal; %obstacle
         end
@@ -58,7 +58,7 @@ newWavefrontCells=1;
 while(newWavefrontCells>0)
       newWavefrontCells=0;
       cloneMap=map;
-% 1. feladat  
+% 1. feladat
     % Hullámfrontok terjesztése
     % Addig fut a ciklus, amíg van olyan üres cella, ahova a hullám
     % eljuthat.
@@ -73,14 +73,38 @@ while(newWavefrontCells>0)
     % - Le kell lezelni az elsõ lépést, ahol a cél (-1 tartalmú) cellát
     % kell körbevenni hullámfronttal
     % - Figyelni kell a hullámfrontba bevont cellák értékének növelésére(newWavefrontCells)!
-    
+
     %%% IDE TESSÉK ÍRNI
-    
-    
-    
-    
+
+    for i=1:size(map,1)
+        for j=1:size(map,2)
+            if map(i,j) == 0 % üres cella
+                ujertek = intmax;
+                for x=-1:1
+                    for y=-1:1
+                        ertek = intmax;
+                        if map(i+x,j+y) > 0
+                            ertek = map(i+x,j+y) + 1 + abs(x) + abs(y);
+                        end
+                        if map(i+x,j+y) == -1
+                            ertek = 1 + abs(x) + abs(y);
+                        end
+                        if ertek < ujertek
+                            ujertek = ertek;
+                        end
+                    end
+                end
+                if ujertek > 0 && ujertek ~= intmax
+                    cloneMap(i,j) = ujertek;
+                else
+                    newWavefrontCells = 1;
+                end
+            end
+        end
+    end
+
     %%% EDDIG
-       
+
 
 
     map=cloneMap;
@@ -89,12 +113,12 @@ while(newWavefrontCells>0)
     colorbar;
     pause(0.01);
 end
-    
+
 
 %% check wavefront vs. startPos
 localMax=-1;
-for (i=-1:1)
-    for (j=-1:1)
+for i=-1:1
+    for j=-1:1
         if map(startPos(1)+i,startPos(2)+j)>0
            localMax=map(startPos(1)+i,startPos(2)+j);
         end
@@ -109,31 +133,43 @@ else
 end
 
 %% search for the shortest path
-if (pathavailable)    
+if pathavailable
     globalMax=max(map(:));
     if localMax>0
-        pathcomplete=0;      
+        pathcomplete=0;
         robotPos(1)=startPos(1);
         robotPos(2)=startPos(2);
         while(~pathcomplete)
-            
-% 2. feladat  
+
+% 2. feladat
     % Legrövidebb út keresése
     % A robot (robotPos) aktuális környezetét meg kell vizsgálni (8
     % szomszédos cella) és a legkisebb hullámfront értékût kell választani (minWave)
     % Magát a lépést és útvonal rajzolást a keretprogram elvégzi!
-    
+
     %%% IDE TESSÉK ÍRNI
-    
-    
-    
-    
+
+    legkisebb = intmax;
+    for x=-1:1
+        for y=-1:1
+            if map(robotPos(1)+x,robotPos(2)+y) > 0 && map(robotPos(1)+x,robotPos(2)+y) < legkisebb
+                legkisebb = map(robotPos(1)+x,robotPos(2)+y);
+                minWave = [robotPos(1)+x,robotPos(2)+y];
+            end
+            if map(robotPos(1)+x,robotPos(2)+y) == -1
+                legkisebb = -1;
+                minWave = [robotPos(1)+x,robotPos(2)+y];
+                pathcomplete = 1;
+            end
+        end
+    end
+
     %%% EDDIG
-            
 
 
-            robotPos=minWave;           
-            map(robotPos(1), robotPos(2))=globalMax*1.2; %draw path 
+
+            robotPos=minWave;
+            map(robotPos(1), robotPos(2))=globalMax*1.2; %draw path
             %% show the wavefronts
             imagesc(map);
             colormap(jet);
