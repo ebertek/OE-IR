@@ -23,10 +23,10 @@ while Generation<GA_MAX_ITER
     [Fitness, index]=sort(Fitness);
     Population=Population(index,:);
     %legjobb egyed kiirasa:
-    disp(sprintf('%d. generacio legjobb josaga: %d,%s', Generation, Fitness(1),char(Population(1,:))));
+    fprintf('%d. generacio legjobb josaga: %d,%s\n', Generation, Fitness(1),char(Population(1,:)));
     if Fitness(1)==0
         break; %ha megtalaltuk, kilepunk
-    end;
+    end
 
     %oroklesben resztvevo elitek
     EliteSelection=Population(1:floor(GA_ELITE_RATE * GA_POP_SIZE),:);
