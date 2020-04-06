@@ -21,13 +21,13 @@ while Generation<GA_MAX_ITER
     [Fitness, index]=sort(Fitness);
     Population=Population(:,:,index);
     %legjobb egyed:
-    disp(sprintf('%d. generáció legjobb jósága: %d', Generation, Fitness(1)));
+    fprintf('%d. generáció legjobb jósága: %d\n', Generation, Fitness(1));
     imshow((Population(:,:,1)),[]);
-    
+
     if Fitness(1)==0
         break;
-    end;
-    
+    end
+
     %elitek kiválasztása:
     EliteSelection=Population(:,:,1:floor(GA_ELITE_RATE * GA_POP_SIZE));
     %keresztezés
@@ -41,8 +41,7 @@ while Generation<GA_MAX_ITER
     for i=1:length(Population(:))*GA_MUTATION_RATE
         Population(randi([1 length(GA_TARGET)]), randi([1 length(GA_TARGET)]), randi([1 GA_POP_SIZE]))= randi([0 1]);
     end
-    
+
     Generation=Generation+1;
 end %while vége
 toc
-    
