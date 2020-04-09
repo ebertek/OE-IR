@@ -8,7 +8,7 @@ GA_TARGET = double(imresize(im2bw(imread('lab5_happy02.png'),0.5),[64 64]));
 GA_POP_SIZE=1000; %generacio meret
 GA_MAX_ITER=500; %max iteracio
 GA_ELITE_RATE=0.1; %elitrata
-GA_MUTATION_RATE=0.01; %mutacios rata
+GA_MUTATION_RATE=0.0005; %mutacios rata
 
 Generation=0;
 %kezdeti egyedek:
